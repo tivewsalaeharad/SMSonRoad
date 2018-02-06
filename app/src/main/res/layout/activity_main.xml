@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hand.smsonroad.MainActivity"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/logo"
+        android:contentDescription="@string/cd_logo"/>
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/pnl_buttons"
+        android:layout_below="@+id/logo"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp">
+
+        <Button
+            android:id="@+id/circle"
+            android:layout_centerInParent="true"
+            android:background="@drawable/style_circle"
+            android:text="@string/sos"
+            android:textSize="60sp"
+            android:textColor="@color/colorMaroon"
+            app:layout_aspectRatio="100%"
+            app:layout_widthPercent="100%"
+            android:onClick="onClick"
+            android:enabled="false"/>
+    </android.support.percent.PercentRelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/pnl_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_rect"
+            android:textSize="20sp"
+            android:textColor="@color/colorMaroon"
+            android:onClick="onClick"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            style="?android:attr/buttonBarStyle">
+            <Button
+                android:id="@+id/btn_site"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/style_rect"
+                android:text="@string/site"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textColor="@color/colorMaroon"
+                android:onClick="onClick"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+            <Button
+                android:id="@+id/btn_settings"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/style_rect"
+                android:text="@string/settings"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textColor="@color/colorMaroon"
+                android:onClick="onClick"
+                style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

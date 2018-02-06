@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:background="@color/colorWhite"
+    tools:context="com.hand.smsonroad.SettingsActivity">
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/style_edit"
+        android:textColor="@color/colorMaroon"
+        android:hint="@string/hint_name"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/style_edit"
+        android:inputType="phone"
+        android:textColor="@color/colorMaroon"
+        android:hint="@string/hint_phone"/>
+
+    <EditText
+        android:id="@+id/vehicle_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/style_edit"
+        android:textColor="@color/colorMaroon"
+        android:hint="@string/hint_vehicle_id"/>
+
+    <EditText
+        android:id="@+id/vehicle_mark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vehicle_id"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/style_edit"
+        android:textColor="@color/colorMaroon"
+        android:hint="@string/hint_vehicle_mark"/>
+
+    <LinearLayout
+        android:id="@+id/pnl_buttons"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/style_rect"
+            android:text="@string/str_ok"
+            android:textAllCaps="false"
+            android:textColor="@color/colorMaroon"
+            android:onClick="onClick"/>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/style_rect"
+            android:text="@string/str_cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorMaroon"
+            android:onClick="onClick"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

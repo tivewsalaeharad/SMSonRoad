@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Auto Life</string>
+    <string name="sos">SOS</string>
+    <string name="site">Сайт</string>
+    <string name="settings">Настройки</string>
+    <string name="hint_name">Имя</string>
+    <string name="hint_phone">Телефон</string>
+    <string name="hint_vehicle_id">Гос. номер автомобиля</string>
+    <string name="hint_vehicle_mark">Марка автомобиля</string>
+    <string name="str_ok">OK</string>
+    <string name="str_cancel">Отмена</string>
+    <string name="send_sms">Отправить экстренное СМС о Вашем местоположении?</string>
+    <string name="sms_template">Нужна помощь на дороге!\nhttps://www.google.ru/maps/@%f,%f,14z?hl=ru\nФИО: %s\nНомер телефона: %s\nГос.номер машины: %s\nМарка машины: %s</string>
+    <string name="cd_logo">LOGO</string>
+</resources>
