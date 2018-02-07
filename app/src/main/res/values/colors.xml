@@ -8,5 +8,6 @@
     <color name="colorBlack">#000000</color>
     <color name="colorGrey">#404040</color>
     <color name="colorMaroon">#800000</color>
+    <color name="colorCardinal">#D2232A</color>
     <color name="colorTransparent">#80FFFFFF</color>
 </resources>

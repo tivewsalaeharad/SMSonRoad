@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Auto Life</string>
+    <string name="app_name">AUTOLIFE 24H</string>
     <string name="sos">SOS</string>
     <string name="site">Сайт</string>
     <string name="settings">Настройки</string>
@@ -10,6 +10,8 @@
     <string name="str_ok">OK</string>
     <string name="str_cancel">Отмена</string>
     <string name="send_sms">Отправить экстренное СМС о Вашем местоположении?</string>
-    <string name="sms_template">Нужна помощь на дороге!\nhttps://www.google.ru/maps/@%f,%f,14z?hl=ru\nФИО: %s\nНомер телефона: %s\nГос.номер машины: %s\nМарка машины: %s</string>
+    <string name="sms_template">Нужна помощь на дороге!\nhttps://www.google.ru/maps/@%f,%f,18z?hl=ru\nhttps://2gis.ru/geo/%f%%2C%f?queryState=center%%2F%f%%2C%f%%2Fzoom%%2F16\nФИО: %s\nНомер телефона: %s\nГос.номер машины: %s\nМарка машины: %s</string>
     <string name="cd_logo">LOGO</string>
+    <string name="default_phone_number">+35795112244</string>
+    <string name="str_settings">Настройки приложения</string>
 </resources>

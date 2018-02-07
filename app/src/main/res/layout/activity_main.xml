@@ -27,13 +27,13 @@
             android:id="@+id/circle"
             android:layout_centerInParent="true"
             android:background="@drawable/style_circle"
-            android:text="@string/sos"
-            android:textSize="60sp"
-            android:textColor="@color/colorMaroon"
-            app:layout_aspectRatio="100%"
-            app:layout_widthPercent="100%"
+            android:enabled="false"
             android:onClick="onClick"
-            android:enabled="false"/>
+            android:text="@string/sos"
+            android:textColor="@color/colorWhite"
+            android:textSize="60sp"
+            app:layout_aspectRatio="100%"
+            app:layout_widthPercent="100%" />
     </android.support.percent.PercentRelativeLayout>
 
     <LinearLayout
@@ -54,40 +54,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/style_rect"
+            android:onClick="onClick"
+            android:text="@string/default_phone_number"
+            android:textColor="@color/colorWhite"
             android:textSize="20sp"
-            android:textColor="@color/colorMaroon"
-            android:onClick="onClick"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             style="?android:attr/buttonBarStyle">
+
             <Button
                 android:id="@+id/btn_site"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/style_rect"
+                android:onClick="onClick"
                 android:text="@string/site"
                 android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp"
-                android:textColor="@color/colorMaroon"
-                android:onClick="onClick"
-                style="?android:attr/buttonBarButtonStyle"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_settings"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/style_rect"
+                android:onClick="onClick"
                 android:text="@string/settings"
                 android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp"
-                android:textColor="@color/colorMaroon"
-                android:onClick="onClick"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

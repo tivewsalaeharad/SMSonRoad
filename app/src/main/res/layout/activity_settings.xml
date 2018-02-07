@@ -12,10 +12,21 @@
     android:background="@color/colorWhite"
     tools:context="com.hand.smsonroad.SettingsActivity">
 
+    <TextView
+        android:id="@+id/txt_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_settings"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorMaroon"
+        android:textSize="16sp"
+        />
+
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/txt_settings"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/style_edit"
@@ -76,10 +87,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/style_rect"
+            android:onClick="onClick"
             android:text="@string/str_ok"
             android:textAllCaps="false"
-            android:textColor="@color/colorMaroon"
-            android:onClick="onClick"/>
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_cancel"
@@ -88,10 +100,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/style_rect"
+            android:onClick="onClick"
             android:text="@string/str_cancel"
             android:textAllCaps="false"
-            android:textColor="@color/colorMaroon"
-            android:onClick="onClick"/>
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

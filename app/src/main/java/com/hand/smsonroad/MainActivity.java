@@ -10,12 +10,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,14 +23,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final int CODE_SETTINGS = 0;
 
+    public static final String KEY_FIRST_START = "Первый запуск";
     public static final String KEY_NAME = "Имя";
     public static final String KEY_PHONE = "Телефон";
     public static final String KEY_VEHICLE_ID = "Номер машины";
     public static final String KEY_VEHICLE_MARK = "Марка машины";
+    public static final String KEY_SMS_BODY = "sms_body";
 
     public static final String PERMISSION_DIALOG = "PermissionDialog";
 
-    private static final String DEFAULT_PHONE_NUMBER = "+35795112244";
+    private static final String SMS_TO_DEFAULT_PHONE_NUMBER = "smsto:+35795112244";
+    private static final String DIAL_DEFAULT_PHONE_NUMBER = "tel:+35795112244";
+
+    private static Boolean firstStart;
 
     public static String fieldName;
     public static String fieldPhone;
@@ -44,17 +49,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FusedLocationProviderClient mFusedLocationClient;
     private Timer timer;
 
-    Button btnPhone;
-    Button btnCircle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loadPreferences();
-        btnPhone = findViewById(R.id.btn_phone);
-        btnPhone.setText(fieldPhone);
-        btnCircle = findViewById(R.id.circle);
+        if (firstStart) {
+            openSettings();
+            firstStart = false;
+        }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (timer!=null) timer.cancel();
         timer = new Timer();
@@ -76,15 +79,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()) {
             case R.id.btn_settings:
-                intent = new Intent(this, SettingsActivity.class);
-                startActivityForResult(intent, CODE_SETTINGS);
+                openSettings();
                 break;
             case R.id.btn_site:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://newautolife.com/"));
+                intent = new Intent(this, WebActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_phone:
-                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + DEFAULT_PHONE_NUMBER));
+                intent = new Intent(Intent.ACTION_DIAL, Uri.parse(DIAL_DEFAULT_PHONE_NUMBER));
                 startActivity(intent);
                 break;
             case R.id.circle:
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onStop() {
         sp = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
+        ed.putBoolean(KEY_FIRST_START, firstStart);
         ed.putString(KEY_NAME, fieldName);
         ed.putString(KEY_PHONE, fieldPhone);
         ed.putString(KEY_VEHICLE_ID, fieldVehicleID);
@@ -124,18 +127,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onGetPermissionFromDialog() {
         String template = getString(R.string.sms_template);
-        String sms = String.format(template, latitude, longitude, fieldName, fieldPhone, fieldVehicleID, fieldVehicleMark);
-        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + DEFAULT_PHONE_NUMBER));
-        intent.putExtra("sms_body", sms);
+        String sms = String.format(Locale.US, template, latitude, longitude, longitude, latitude, longitude, latitude, fieldName, fieldPhone, fieldVehicleID, fieldVehicleMark);
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(SMS_TO_DEFAULT_PHONE_NUMBER));
+        intent.putExtra(KEY_SMS_BODY, sms);
         startActivity(intent);
     }
 
     private void loadPreferences() {
         sp = getPreferences(MODE_PRIVATE);
+        firstStart = sp.getBoolean(KEY_FIRST_START, true);
         fieldName = sp.getString(KEY_NAME, "");
         fieldPhone = sp.getString(KEY_PHONE, "");
         fieldVehicleID = sp.getString(KEY_VEHICLE_ID, "");
         fieldVehicleMark = sp.getString(KEY_VEHICLE_MARK, "");
+    }
+
+    private void openSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(intent, CODE_SETTINGS);
     }
 
     private void setLocation() {
@@ -148,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (location != null) {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
-                            btnCircle.setEnabled(true);
+                            findViewById(R.id.circle).setEnabled(true);
                         }
                     }
                 });
