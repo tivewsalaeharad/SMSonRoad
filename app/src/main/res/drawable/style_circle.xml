@@ -1,17 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:state_enabled="false">
-    <shape xmlns:android="http://schemas.android.com/apk/res/android"
-        android:thickness="0dp"
-        android:shape="oval">
-        <solid android:color="@color/colorGrey"/>
-    </shape>
-</item>
-<item android:state_enabled="true">
-    <shape xmlns:android="http://schemas.android.com/apk/res/android"
-        android:thickness="0dp"
-        android:shape="oval">
-        <solid android:color="@color/colorCardinal"/>
-    </shape>
-</item>
+    <item android:state_enabled="false">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <padding android:bottom="@dimen/innerPadding" android:left="@dimen/innerPadding" android:right="@dimen/innerPadding" android:top="@dimen/innerPadding" />
+                    <solid android:color="@color/colorGrey" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <padding android:bottom="@dimen/outerPadding" android:left="@dimen/outerPadding" android:right="@dimen/outerPadding" android:top="@dimen/outerPadding" />
+                    <solid android:color="@color/colorWhite" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/colorGrey"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_enabled="true" android:state_pressed="false">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <padding android:bottom="@dimen/innerPadding" android:left="@dimen/innerPadding" android:right="@dimen/innerPadding" android:top="@dimen/innerPadding" />
+                    <solid android:color="@color/colorCardinal" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <padding android:bottom="@dimen/outerPadding" android:left="@dimen/outerPadding" android:right="@dimen/outerPadding" android:top="@dimen/outerPadding" />
+                    <solid android:color="@color/colorWhite" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/colorCardinal"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_enabled="true" android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <padding android:bottom="@dimen/innerPadding" android:left="@dimen/innerPadding" android:right="@dimen/innerPadding" android:top="@dimen/innerPadding" />
+                    <solid android:color="@color/colorCardinal" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <padding android:bottom="@dimen/outerPadding" android:left="@dimen/outerPadding" android:right="@dimen/outerPadding" android:top="@dimen/outerPadding" />
+                    <solid android:color="@color/colorWhite" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/colorMaroon"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
 </selector>
