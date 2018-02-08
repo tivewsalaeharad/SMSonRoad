@@ -20,4 +20,5 @@
     <string name="vehicle">CAR</string>
     <string name="to_send_sms">Send SMS</string>
     <string name="need_help">ROAD ASSISTANCE 24H</string>
+    <string name="timeout">Failed to determine location. Please contact administraton.</string>
 </resources>

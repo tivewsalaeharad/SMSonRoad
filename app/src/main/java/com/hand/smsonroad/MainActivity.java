@@ -30,8 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String KEY_VEHICLE_ID = "Vehicle number";
     public static final String KEY_VEHICLE_MARK = "Vehicle mark";
     public static final String KEY_VEHICLE_MODEL = "Vehicle model";
-
     public static final String KEY_SMS_BODY = "sms_body";
+
+    public static final String TAG_TIMEOUT = "Timeout";
+
+    public static final int TIMEOUT = 10;
 
     private static final String SMS_TO_DEFAULT_PHONE_NUMBER = "smsto:+35795112244";
     private static final String DIAL_DEFAULT_PHONE_NUMBER = "tel:+35795112244";
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static double latitude;
     public static double longitude;
 
+    public static int duration;
+
     private SharedPreferences sp;
     private FusedLocationProviderClient mFusedLocationClient;
     private Timer timer;
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             firstStart = false;
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (timer!=null) timer.cancel();
+        if (timer != null) timer.cancel();
         timer = new Timer();
         MyTimerTask timerTask = new MyTimerTask();
         timerTask.activity = this;
@@ -71,9 +76,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     class MyTimerTask extends TimerTask {
         MainActivity activity;
+
         @Override
         public void run() {
-            runOnUiThread(new Runnable() { @Override public void run() { activity.setLocation(); } });
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    activity.setLocation();
+                }
+            });
         }
     }
 
@@ -158,19 +169,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) return;
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            return;
         mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                            findViewById(R.id.circle).setEnabled(true);
-                              }
-                    }
-                });
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    findViewById(R.id.circle).setEnabled(true);
+                    findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                    duration = 0;
+                } else if (duration < TIMEOUT) {
+                    duration ++;
+                    findViewById(R.id.circle).setEnabled(false);
+                    findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+                } else if (duration == TIMEOUT) {
+                    duration ++;
+                    findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                    TimeoutMessageDialog fragment = new TimeoutMessageDialog();
+                    fragment.show(getFragmentManager(), TAG_TIMEOUT);
+                }
+            }
+        });
     }
-
 }
+
+
 
 
