@@ -1,29 +1,23 @@
 <resources>
     <string name="app_name">AUTOLIFE 24H</string>
     <string name="sos">SOS</string>
-    <string name="site">Сайт</string>
-    <string name="settings">Настройки</string>
-    <string name="hint_name">Имя:</string>
-    <string name="hint_phone">Телефон:</string>
-    <string name="hint_vehicle_id">Гос. номер":</string>
-    <string name="hint_vehicle_mark">Марка:</string>
-    <string name="hint_vehicle_model">Модель:</string>
-    <string name="hint_edit_name">Имя</string>
-    <string name="hint_edit_phone">Телефон</string>
-    <string name="hint_edit_vehicle_id">Гос. номер"</string>
-    <string name="hint_edit_vehicle_mark">Марка</string>
-    <string name="hint_edit_vehicle_model">Модель</string>
+    <string name="site">Web site</string>
+    <string name="settings">Settings</string>
+    <string name="hint_name">Name:</string>
+    <string name="hint_phone">Phone:</string>
+    <string name="hint_vehicle_id">Reg. number:</string>
+    <string name="hint_vehicle_mark">Brand:</string>
+    <string name="hint_vehicle_model">Model:</string>
     <string name="str_ok">OK</string>
-    <string name="str_cancel">Отмена</string>
-    <string name="str_done">Готово</string>
-    <string name="str_to_cancel">Отменить</string>
-    <string name="send_sms">Отправить экстренное СМС о Вашем местоположении?</string>
-    <string name="sms_template">Нужна помощь на дороге!\nКоординаты Google: https://www.google.ru/maps/@%f,%f,18z?hl=ru\nКоординаты 2ГИС: https://2gis.ru/geo/%f%%2C%f?queryState=center%%2F%f%%2C%f%%2Fzoom%%2F16\nФИО: %s\nНомер телефона: %s\nГос.номер машины: %s\nМарка машины: %s\nМодель машины: %s</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_done">Done</string>
+    <string name="str_to_cancel">Cancel</string>
+    <string name="send_sms">Send SMS with your location?</string>
     <string name="cd_logo">LOGO</string>
     <string name="default_phone_number">+35795112244</string>
-    <string name="str_settings">Настройки приложения</string>
-    <string name="back">Назад</string>
-    <string name="vehicle">АВТОМОБИЛЬ</string>
-    <string name="to_send_sms">Отправить SMS</string>
-    <string name="need_help">НУЖНА ПОМОЩЬ НА ДОРОГЕ!</string>
+    <string name="str_settings">App settings</string>
+    <string name="back">Back</string>
+    <string name="vehicle">CAR</string>
+    <string name="to_send_sms">Send SMS</string>
+    <string name="need_help">ROAD ASSISTANCE 24H</string>
 </resources>

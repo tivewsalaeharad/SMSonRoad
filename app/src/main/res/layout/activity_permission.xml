@@ -42,93 +42,150 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:paddingBottom="15dp"
         android:paddingEnd="0dp"
         android:paddingLeft="20dp"
         android:paddingRight="0dp"
         android:paddingStart="20dp"
         android:paddingTop="20dp"
-        android:gravity="center_horizontal"
         android:text="@string/need_help"
         android:textColor="@color/colorBlack" />
 
-    <EditText
-        android:id="@+id/name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/style_edit"
-        android:inputType="text"
-        android:hint="@string/hint_edit_name"
-        android:textColor="@color/colorBlack"
-        android:textColorHint="@color/colorGrey"/>
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:paddingEnd="0dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="0dp"
+        android:paddingStart="20dp">
 
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/style_edit"
-        android:inputType="phone"
-        android:hint="@string/hint_edit_phone"
-        android:textColor="@color/colorBlack"
-        android:textColorHint="@color/colorGrey"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_item"
+            android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/vehicle_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/style_edit"
-        android:inputType="text"
-        android:hint="@string/hint_edit_vehicle_id"
-        android:textColor="@color/colorBlack"
-        android:textColorHint="@color/colorGrey"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/hint_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/vehicle_mark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/style_edit"
-        android:inputType="text"
-        android:hint="@string/hint_edit_vehicle_mark"
-        android:textColor="@color/colorBlack"
-        android:textColorHint="@color/colorGrey"/>
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/style_edit"
+                android:gravity="end"
+                android:inputType="text"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/vehicle_model"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/style_edit"
-        android:inputType="text"
-        android:hint="@string/hint_edit_vehicle_model"
-        android:textColor="@color/colorBlack"
-        android:textColorHint="@color/colorGrey"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_item"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/hint_phone"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/style_edit"
+                android:gravity="end"
+                android:inputType="phone"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_item"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/hint_vehicle_id"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/vehicle_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/style_edit"
+                android:gravity="end"
+                android:inputType="text"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_item"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/hint_vehicle_mark"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/vehicle_mark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/style_edit"
+                android:gravity="end"
+                android:inputType="text"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_item_bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/hint_vehicle_model"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/vehicle_model"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/style_edit"
+                android:gravity="end"
+                android:inputType="text"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

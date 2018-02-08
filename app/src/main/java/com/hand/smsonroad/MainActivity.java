@@ -24,17 +24,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int CODE_SETTINGS = 0;
     public static final int CODE_PERMISSION = 1;
 
-    public static final String KEY_FIRST_START = "Первый запуск";
-    public static final String KEY_NAME = "Имя";
-    public static final String KEY_PHONE = "Телефон";
-    public static final String KEY_VEHICLE_ID = "Номер машины";
-    public static final String KEY_VEHICLE_MARK = "Марка машины";
-    public static final String KEY_VEHICLE_MODEL = "Модель машины";
+    public static final String KEY_FIRST_START = "First start";
+    public static final String KEY_NAME = "Name";
+    public static final String KEY_PHONE = "Phone";
+    public static final String KEY_VEHICLE_ID = "Vehicle number";
+    public static final String KEY_VEHICLE_MARK = "Vehicle mark";
+    public static final String KEY_VEHICLE_MODEL = "Vehicle model";
 
     public static final String KEY_SMS_BODY = "sms_body";
 
     private static final String SMS_TO_DEFAULT_PHONE_NUMBER = "smsto:+35795112244";
     private static final String DIAL_DEFAULT_PHONE_NUMBER = "tel:+35795112244";
+    private static final String template = "NEED HELP ON ROAD!\nGoogle location: https://www.google.com/maps?daddr=%f,%f\n2GIS location: https://2gis.ru/geo/%f,%f?queryState=center/%f,%f/zoom/16\nName: %s\nPhone: %s\nReg. number: %s\nBrand: %s\nModel: %s";
 
     private static Boolean firstStart;
 
@@ -117,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String varVehicleID = data.getStringExtra(KEY_VEHICLE_ID);
                 String varVehicleMark = data.getStringExtra(KEY_VEHICLE_MARK);
                 String varVehicleModel = data.getStringExtra(KEY_VEHICLE_MODEL);
-                String template = getString(R.string.sms_template);
                 String sms = String.format(Locale.US, template, latitude, longitude, longitude, latitude, longitude, latitude, varName, varPhone, varVehicleID, varVehicleMark, varVehicleModel);
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(SMS_TO_DEFAULT_PHONE_NUMBER));
                 intent.putExtra(KEY_SMS_BODY, sms);
@@ -166,9 +166,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
                             findViewById(R.id.circle).setEnabled(true);
-                        }
+                              }
                     }
                 });
     }
 
 }
+
+
