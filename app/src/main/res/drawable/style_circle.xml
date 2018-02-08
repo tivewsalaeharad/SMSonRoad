@@ -16,7 +16,7 @@
             </item>
             <item>
                 <shape android:shape="oval">
-                    <solid android:color="@color/colorGrey"/>
+                    <solid android:color="@color/colorGrey" />
                 </shape>
             </item>
         </layer-list>
@@ -37,7 +37,7 @@
             </item>
             <item>
                 <shape android:shape="oval">
-                    <solid android:color="@color/colorCardinal"/>
+                    <solid android:color="@color/colorCardinal" />
                 </shape>
             </item>
         </layer-list>
@@ -58,7 +58,7 @@
             </item>
             <item>
                 <shape android:shape="oval">
-                    <solid android:color="@color/colorMaroon"/>
+                    <solid android:color="@color/colorMaroon" />
                 </shape>
             </item>
         </layer-list>

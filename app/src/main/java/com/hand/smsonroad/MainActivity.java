@@ -19,18 +19,19 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, PermissionDialog.GetPermissionListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int CODE_SETTINGS = 0;
+    public static final int CODE_PERMISSION = 1;
 
     public static final String KEY_FIRST_START = "Первый запуск";
     public static final String KEY_NAME = "Имя";
     public static final String KEY_PHONE = "Телефон";
     public static final String KEY_VEHICLE_ID = "Номер машины";
     public static final String KEY_VEHICLE_MARK = "Марка машины";
-    public static final String KEY_SMS_BODY = "sms_body";
+    public static final String KEY_VEHICLE_MODEL = "Модель машины";
 
-    public static final String PERMISSION_DIALOG = "PermissionDialog";
+    public static final String KEY_SMS_BODY = "sms_body";
 
     private static final String SMS_TO_DEFAULT_PHONE_NUMBER = "smsto:+35795112244";
     private static final String DIAL_DEFAULT_PHONE_NUMBER = "tel:+35795112244";
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String fieldPhone;
     public static String fieldVehicleID;
     public static String fieldVehicleMark;
+    public static String fieldVehicleModel;
 
     public static double latitude;
     public static double longitude;
@@ -90,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.circle:
-                PermissionDialog fragment = new PermissionDialog();
-                fragment.show(getFragmentManager(), PERMISSION_DIALOG);
+                intent = new Intent(this, PermissionActivity.class);
+                startActivityForResult(intent, CODE_PERMISSION);
                 break;
         }
     }
@@ -107,6 +109,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fieldPhone = data.getStringExtra(KEY_PHONE);
                 fieldVehicleID = data.getStringExtra(KEY_VEHICLE_ID);
                 fieldVehicleMark = data.getStringExtra(KEY_VEHICLE_MARK);
+                fieldVehicleModel = data.getStringExtra(KEY_VEHICLE_MODEL);
+                break;
+            case CODE_PERMISSION:
+                String varName = data.getStringExtra(KEY_NAME);
+                String varPhone = data.getStringExtra(KEY_PHONE);
+                String varVehicleID = data.getStringExtra(KEY_VEHICLE_ID);
+                String varVehicleMark = data.getStringExtra(KEY_VEHICLE_MARK);
+                String varVehicleModel = data.getStringExtra(KEY_VEHICLE_MODEL);
+                String template = getString(R.string.sms_template);
+                String sms = String.format(Locale.US, template, latitude, longitude, longitude, latitude, longitude, latitude, varName, varPhone, varVehicleID, varVehicleMark, varVehicleModel);
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(SMS_TO_DEFAULT_PHONE_NUMBER));
+                intent.putExtra(KEY_SMS_BODY, sms);
+                startActivity(intent);
                 break;
         }
     }
@@ -120,17 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ed.putString(KEY_PHONE, fieldPhone);
         ed.putString(KEY_VEHICLE_ID, fieldVehicleID);
         ed.putString(KEY_VEHICLE_MARK, fieldVehicleMark);
+        ed.putString(KEY_VEHICLE_MODEL, fieldVehicleModel);
         ed.apply();
         super.onStop();
-    }
-
-    @Override
-    public void onGetPermissionFromDialog() {
-        String template = getString(R.string.sms_template);
-        String sms = String.format(Locale.US, template, latitude, longitude, longitude, latitude, longitude, latitude, fieldName, fieldPhone, fieldVehicleID, fieldVehicleMark);
-        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(SMS_TO_DEFAULT_PHONE_NUMBER));
-        intent.putExtra(KEY_SMS_BODY, sms);
-        startActivity(intent);
     }
 
     private void loadPreferences() {
@@ -140,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fieldPhone = sp.getString(KEY_PHONE, "");
         fieldVehicleID = sp.getString(KEY_VEHICLE_ID, "");
         fieldVehicleMark = sp.getString(KEY_VEHICLE_MARK, "");
+        fieldVehicleModel = sp.getString(KEY_VEHICLE_MODEL, "");
     }
 
     private void openSettings() {

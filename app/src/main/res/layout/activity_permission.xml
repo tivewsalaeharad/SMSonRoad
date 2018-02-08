@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context="com.hand.smsonroad.SettingsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorCardinal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="@string/str_to_cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:onClick="onClick"
+            android:text="@string/to_send_sms"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingEnd="0dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="0dp"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/need_help"
+        android:textColor="@color/colorBlack" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/style_edit"
+        android:inputType="text"
+        android:hint="@string/hint_edit_name"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGrey"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/style_edit"
+        android:inputType="phone"
+        android:hint="@string/hint_edit_phone"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGrey"/>
+
+    <EditText
+        android:id="@+id/vehicle_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/style_edit"
+        android:inputType="text"
+        android:hint="@string/hint_edit_vehicle_id"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGrey"/>
+
+    <EditText
+        android:id="@+id/vehicle_mark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/style_edit"
+        android:inputType="text"
+        android:hint="@string/hint_edit_vehicle_mark"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGrey"/>
+
+    <EditText
+        android:id="@+id/vehicle_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/style_edit"
+        android:inputType="text"
+        android:hint="@string/hint_edit_vehicle_model"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGrey"/>
+</LinearLayout>

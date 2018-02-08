@@ -2,4 +2,5 @@
 <resources>
     <dimen name="outerPadding">7dp</dimen>
     <dimen name="innerPadding">8dp</dimen>
+    <dimen name="itemPadding">10dp</dimen>
 </resources>

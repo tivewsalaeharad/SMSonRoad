@@ -2,10 +2,11 @@ package com.hand.smsonroad;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class WebActivity extends AppCompatActivity {
+public class WebActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String EMAIL_ADDRESS = "http://newautolife.com/";
     WebView mWebView;
@@ -23,6 +24,11 @@ public class WebActivity extends AppCompatActivity {
     public void onBackPressed() {
         if(mWebView.canGoBack()) mWebView.goBack();
         else super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        finish();
     }
 
     private class MyWebViewClient extends WebViewClient {

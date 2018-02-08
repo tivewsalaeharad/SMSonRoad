@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
+public class PermissionActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText editName;
     EditText editPhone;
@@ -17,7 +17,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_permission);
         editName = findViewById(R.id.name);
         editPhone = findViewById(R.id.phone);
         editVehicleID = findViewById(R.id.vehicle_id);
