@@ -20,5 +20,8 @@
     <string name="vehicle">CAR</string>
     <string name="to_send_sms">Send SMS</string>
     <string name="need_help">ROAD ASSISTANCE 24H</string>
-    <string name="timeout">Failed to determine location. Please contact administraton.</string>
+    <string name="timeout">Failed to determine location. Please contact administration.</string>
+    <string name="gps_disabled">GPS is disabled. Enable GPS?</string>
+    <string name="wait_message">Wait until app determine location</string>
+    <string name="gps_turned_off">GPS is turned off</string>
 </resources>

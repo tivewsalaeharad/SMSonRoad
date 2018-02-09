@@ -6,10 +6,15 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -19,7 +24,10 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements
+        View.OnClickListener,
+        ActivityCompat.OnRequestPermissionsResultCallback,
+        PermissionDialog.GetPermissionListener{
 
     public static final int CODE_SETTINGS = 0;
     public static final int CODE_PERMISSION = 1;
@@ -32,15 +40,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String KEY_VEHICLE_MODEL = "Vehicle model";
     public static final String KEY_SMS_BODY = "sms_body";
 
-    public static final String TAG_TIMEOUT = "Timeout";
+    public static final String TAG_PERMISSION_DIALOG = "PermissionDialog";
 
-    public static final int TIMEOUT = 10;
+    public static final int LOCATION_UPDATE_FREQUENCY = 5000;
 
     private static final String SMS_TO_DEFAULT_PHONE_NUMBER = "smsto:+35795112244";
     private static final String DIAL_DEFAULT_PHONE_NUMBER = "tel:+35795112244";
-    private static final String template = "NEED HELP ON ROAD!\nGoogle location: https://www.google.com/maps?daddr=%f,%f\n2GIS location: https://2gis.ru/geo/%f,%f?queryState=center/%f,%f/zoom/16\nName: %s\nPhone: %s\nReg. number: %s\nBrand: %s\nModel: %s";
+    //private static final String template_reserved = "NEED HELP ON ROAD!\nGoogle location: https://www.google.com/maps?daddr=%f,%f\n2GIS location: https://2gis.ru/geo/%f,%f?queryState=center/%f,%f/zoom/16\nName: %s\nPhone: %s\nReg. number: %s\nBrand: %s\nModel: %s";
+    private static final String template = "NEED HELP ON ROAD!\nGoogle location: https://www.google.com/maps?daddr=%f,%f\n2GIS location: dgis://2gis.ru/routeSearch/rsType/car/to/%f,%f\nName: %s\nPhone: %s\nReg. number: %s\nBrand: %s\nModel: %s";
 
     private static Boolean firstStart;
+    private static Boolean gpsEnabled;
 
     public static String fieldName;
     public static String fieldPhone;
@@ -51,41 +61,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static double latitude;
     public static double longitude;
 
-    public static int duration;
-
     private SharedPreferences sp;
     private FusedLocationProviderClient mFusedLocationClient;
     private Timer timer;
+    private View mainLayout;
+    private ProgressBar progressBar;
+    private Button circle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainLayout = findViewById(R.id.main_layout);
+        progressBar = findViewById(R.id.progress_bar);
+        circle = findViewById(R.id.circle);
         loadPreferences();
         if (firstStart) {
             openSettings();
             firstStart = false;
         }
+        gpsEnabled = checkGPSEnabled();
+        if(!gpsEnabled) {
+            PermissionDialog fragment = new PermissionDialog();
+            fragment.show(getFragmentManager(), TAG_PERMISSION_DIALOG);
+        }
+        else waitMessage();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (timer != null) timer.cancel();
         timer = new Timer();
         MyTimerTask timerTask = new MyTimerTask();
         timerTask.activity = this;
-        timer.schedule(timerTask, 5000, 5000);
+        timer.schedule(timerTask, LOCATION_UPDATE_FREQUENCY, LOCATION_UPDATE_FREQUENCY);
     }
 
-    class MyTimerTask extends TimerTask {
-        MainActivity activity;
-
-        @Override
-        public void run() {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    activity.setLocation();
-                }
-            });
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            if (gpsChanged()) {
+                gpsEnabled = !gpsEnabled;
+                if (gpsEnabled) waitMessage();
+            }
+            if (!gpsEnabled) gpsTurnedOffMessage();
         }
+    }
+
+    @Override
+    public void onGetPermissionFromDialog(boolean confirmed) {
+        if (confirmed) startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        else gpsTurnedOffMessage();
     }
 
     @Override
@@ -129,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String varVehicleID = data.getStringExtra(KEY_VEHICLE_ID);
                 String varVehicleMark = data.getStringExtra(KEY_VEHICLE_MARK);
                 String varVehicleModel = data.getStringExtra(KEY_VEHICLE_MODEL);
-                String sms = String.format(Locale.US, template, latitude, longitude, longitude, latitude, longitude, latitude, varName, varPhone, varVehicleID, varVehicleMark, varVehicleModel);
+                String sms = String.format(Locale.US, template, latitude, longitude, longitude, latitude, varName, varPhone, varVehicleID, varVehicleMark, varVehicleModel);
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(SMS_TO_DEFAULT_PHONE_NUMBER));
                 intent.putExtra(KEY_SMS_BODY, sms);
                 startActivity(intent);
@@ -151,6 +175,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStop();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PermissionUtils.CODE_PERMISSION_LOCATION) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Snackbar.make(mainLayout, "Location permission was granted.", Snackbar.LENGTH_SHORT) .show();
+                setLocation();
+            } else {
+                Snackbar.make(mainLayout, "Location permission request was denied.", Snackbar.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    class MyTimerTask extends TimerTask {
+
+        MainActivity activity;
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(gpsEnabled) activity.setLocation();
+                    else {
+                        progressBar.setVisibility(View.GONE);
+                        circle.setEnabled(false);
+                    }
+                }
+            });
+        }
+    }
+
     private void loadPreferences() {
         sp = getPreferences(MODE_PRIVATE);
         firstStart = sp.getBoolean(KEY_FIRST_START, true);
@@ -167,31 +221,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestLocationPermissionWithExplanation();
             return;
+        }
         mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
-                    findViewById(R.id.circle).setEnabled(true);
-                    findViewById(R.id.progress_bar).setVisibility(View.GONE);
-                    duration = 0;
-                } else if (duration < TIMEOUT) {
-                    duration ++;
-                    findViewById(R.id.circle).setEnabled(false);
-                    findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
-                } else if (duration == TIMEOUT) {
-                    duration ++;
-                    findViewById(R.id.progress_bar).setVisibility(View.GONE);
-                    TimeoutMessageDialog fragment = new TimeoutMessageDialog();
-                    fragment.show(getFragmentManager(), TAG_TIMEOUT);
+                    circle.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    circle.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             }
         });
+    }
+
+    private void requestLocationPermissionWithExplanation() {
+        if (PermissionUtils.shouldAskLocationPermission(this)) {
+            Snackbar.make(mainLayout, "Required access to determine location",
+                    Snackbar.LENGTH_INDEFINITE).setAction(R.string.str_ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            PermissionUtils.requestLocationPermissions(MainActivity.this);
+                        }
+                    }).show();
+        } else {
+            PermissionUtils.requestLocationPermissions(this);
+        }
+    }
+
+    private boolean checkGPSEnabled(){
+        String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        return provider.contains("gps");
+    }
+
+    private boolean gpsChanged() {
+        return gpsEnabled != checkGPSEnabled();
+    }
+
+    private void waitMessage() {
+        Snackbar.make(mainLayout, R.string.wait_message, Snackbar.LENGTH_LONG).setAction(R.string.str_ok, null).show();
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void gpsTurnedOffMessage() {
+        Snackbar.make(mainLayout, R.string.gps_turned_off, Snackbar.LENGTH_SHORT).setAction(R.string.str_ok, null).show();
+        circle.setEnabled(false);
+        progressBar.setVisibility(View.GONE);
     }
 }
 
