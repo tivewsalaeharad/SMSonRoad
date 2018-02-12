@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements
 
     public static final int LOCATION_UPDATE_FREQUENCY = 5000;
 
-    private static final String SMS_TO_DEFAULT_PHONE_NUMBER = "smsto:+35795112244";
+    private static final String SMS_TO_DEFAULT_PHONE_NUMBER = "sms:+35795112244";
     private static final String DIAL_DEFAULT_PHONE_NUMBER = "tel:+35795112244";
     //private static final String template_reserved = "NEED HELP ON ROAD!\nGoogle location: https://www.google.com/maps?daddr=%f,%f\n2GIS location: https://2gis.ru/geo/%f,%f?queryState=center/%f,%f/zoom/16\nName: %s\nPhone: %s\nReg. number: %s\nBrand: %s\nModel: %s";
     private static final String template = "NEED HELP ON ROAD!\nGoogle location: https://www.google.com/maps?daddr=%f,%f\n2GIS location: dgis://2gis.ru/routeSearch/rsType/car/to/%f,%f\nName: %s\nPhone: %s\nReg. number: %s\nBrand: %s\nModel: %s";
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements
                 String varVehicleMark = data.getStringExtra(KEY_VEHICLE_MARK);
                 String varVehicleModel = data.getStringExtra(KEY_VEHICLE_MODEL);
                 String sms = String.format(Locale.US, template, latitude, longitude, longitude, latitude, varName, varPhone, varVehicleID, varVehicleMark, varVehicleModel);
+                //sendSMS(DEFAULT_PHONE_NUMBER, sms);
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(SMS_TO_DEFAULT_PHONE_NUMBER));
                 intent.putExtra(KEY_SMS_BODY, sms);
                 startActivity(intent);
@@ -274,6 +276,7 @@ public class MainActivity extends AppCompatActivity implements
         circle.setEnabled(false);
         progressBar.setVisibility(View.GONE);
     }
+
 }
 
 

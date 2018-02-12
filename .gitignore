@@ -1,5 +1,6 @@
 *.iml
 java.lnk
+keystore.jks
 .gradle
 /local.properties
 /.idea/workspace.xml
